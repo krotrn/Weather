@@ -4,6 +4,7 @@ import Container from "../Container/Container";
 
 import { memo, Suspense, lazy } from "react";
 import classnames from "classnames";
+import Loading from "../../assets/Loading";
 
 // Lazy load Logo component for better performance
 const LazyLogo = lazy(() => import("../../assets/Logo"));
@@ -40,7 +41,7 @@ function Header(): JSX.Element {
         <Container>
           <nav className="flex" role="navigation" aria-label="Main navigation">
             {/* Lazy-loaded Logo */}
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loading />}>
               <div>
                 <LazyLogo width="50" />
               </div>
