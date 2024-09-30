@@ -1,5 +1,5 @@
 import { useCallback, useState, useMemo } from "react";
-import {  useNavigate } from "react-router-dom"; // React-Router for navigation
+import {  Link, useNavigate } from "react-router-dom"; // React-Router for navigation
 import Container from "../Container/Container";
 
 import { memo, lazy } from "react";
@@ -42,9 +42,9 @@ function Header(): JSX.Element {
           <nav className="flex" role="navigation" aria-label="Main navigation">
             {/* Lazy-loaded Logo */}
             <ErrorBoundary>
-              <div>
+              <Link to={"/"}>
                 <LazyLogo width="50" />
-              </div>
+              </Link>
             </ErrorBoundary>
             {/* Mobile menu button */}
             <button
