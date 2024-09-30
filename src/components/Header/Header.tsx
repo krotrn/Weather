@@ -1,10 +1,10 @@
 import { useCallback, useState, useMemo } from "react";
-// import {  useNavigate } from "react-router-dom"; // React-Router for navigation
+import {  useNavigate } from "react-router-dom"; // React-Router for navigation
 import Container from "../Container/Container";
 
-import { memo, Suspense, lazy } from "react";
+import { memo, lazy } from "react";
 import classnames from "classnames";
-import Loading from "../../assets/Loading";
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
 // Lazy load Logo component for better performance
 const LazyLogo = lazy(() => import("../../assets/Logo"));
@@ -16,7 +16,7 @@ export interface NavItem {
 
 function Header(): JSX.Element {
   const [mobile, setMobile] = useState(false);
-  // const navigate = useNavigate(); // useNavigate from react-router-dom for navigation
+  const navigate = useNavigate(); // useNavigate from react-router-dom for navigation
 
   // Memoize nav items to avoid re-creating on every render
   const navItems: NavItem[] = useMemo(
@@ -41,11 +41,11 @@ function Header(): JSX.Element {
         <Container>
           <nav className="flex" role="navigation" aria-label="Main navigation">
             {/* Lazy-loaded Logo */}
-            <Suspense fallback={<Loading />}>
+            <ErrorBoundary>
               <div>
                 <LazyLogo width="50" />
               </div>
-            </Suspense>
+            </ErrorBoundary>
             {/* Mobile menu button */}
             <button
               aria-label="Toggle mobile menu"
@@ -65,7 +65,7 @@ function Header(): JSX.Element {
                 <li key={item.label} className="px-2">
                   <button
                     className="inline-block px-6 py-2 text-[#3e8aed] hover:bg-[rgb(3,139,217)] hover:text-white duration-200 rounded-md"
-                    // onClick={() => navigate(item.slug)}
+                    onClick={() => navigate(item.slug)}
                   >
                     {item.label}
                   </button>
@@ -89,7 +89,7 @@ function Header(): JSX.Element {
                     <button
                       className="inline-block px-6 py-2 text-[#3e8aed] hover:bg-[rgb(3,139,217)] hover:text-white duration-200 rounded-md"
                       onClick={() => {
-                        // navigate(item.slug);
+                        navigate(item.slug);
                         setMobile(false); // Close mobile menu on navigation
                       }}
                     >
