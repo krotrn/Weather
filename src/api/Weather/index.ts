@@ -10,7 +10,7 @@ const fetchWeatherData = async (query: string): Promise<DataInterface | null > =
     try {
         const response: Response = await fetch(`${baseUrl}${apiKey}&q=${query}&aqi=yes`);
         console.log(response);
-        console.log();
+        console.log(`${baseUrl}${apiKey}&q=${query}&aqi=yes`);
         
         
 
