@@ -1,0 +1,5 @@
+<?xml version="1.0" ?><svg data-name="Layer 1" height="32" id="Layer_1" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg"><defs><style>
+      .cls-1 {
+        fill: none;
+      }
+    </style></defs><path d="M13,30H9a2.0027,2.0027,0,0,1-2-2V20H9v8h4V20h2v8A2.0027,2.0027,0,0,1,13,30Z" transform="translate(0 0)"/><polygon points="25 20 23.25 20 21 29.031 18.792 20 17 20 19.5 30 22.5 30 25 20"/><rect height="5" width="2" x="15" y="2"/><rect height="1.9998" transform="translate(1.5191 19.3744) rotate(-45)" width="4.958" x="21.6675" y="6.8536"/><rect height="2" width="5" x="25" y="15"/><rect height="2" width="5" x="2" y="15"/><rect height="4.958" transform="translate(-3.253 7.8535) rotate(-45)" width="1.9998" x="6.8536" y="5.3745"/><path d="M22,17H20V16a4,4,0,0,0-8,0v1H10V16a6,6,0,0,1,12,0Z" transform="translate(0 0)"/><rect class="cls-1" data-name="&lt;Transparent Rectangle&gt;" height="32" id="_Transparent_Rectangle_" width="32"/></svg>
