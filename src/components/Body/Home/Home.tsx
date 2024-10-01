@@ -1,4 +1,3 @@
-import React from 'react'
 import WeatherCard from './Card/WeatherCard'
 
 function Home() {
