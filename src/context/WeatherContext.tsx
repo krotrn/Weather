@@ -53,9 +53,12 @@ export const WeatherProvider = ({ children }: { children: React.ReactNode }) => 
             if (latitude === null || longitude === null) return;
 
             const response = await getWeatherForCoordinates(latitude, longitude);
+            console.log(response);
+            
             if (response) {
                 setData(response);
             } else {
+                
                 console.error("No data returned from the weather API.");
             }
         } catch (error) {
