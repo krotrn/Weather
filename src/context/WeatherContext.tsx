@@ -38,9 +38,12 @@ export const WeatherProvider = ({ children }: { children: React.ReactNode }) => 
             if (!searchCity) return;
 
             const response = await getWeatherForCity(searchCity);
+            console.log(response);
+            
             if (response) {
                 setData(response);
             } else {
+                
                 console.error("No data returned from the weather API.");
             }
         } catch (error) {

@@ -6,7 +6,7 @@ const baseUrl: string = conf.apiUrl;
 const apiKey: string = conf.apikey;  
 
 
-const fetchWeatherData = async (query: string): Promise<DataInterface | null | undefined> => {
+const fetchWeatherData = async (query: string): Promise<DataInterface | null > => {
     try {
         const response: Response = await fetch(`${baseUrl}${apiKey}&q=${query}&aqi=yes`);
         console.log(response);
@@ -26,15 +26,16 @@ const fetchWeatherData = async (query: string): Promise<DataInterface | null | u
         return data;
     } catch (error) {
         console.error("Error in fetchWeatherData:", error);
+        return null;
     }
 };
 
-export const getWeatherForCity = memoizee(async (city: string): Promise<DataInterface | null | undefined> => {
+export const getWeatherForCity = memoizee(async (city: string): Promise<DataInterface | null > => {
     if (!city) return null;
     return fetchWeatherData(city);
 }, { promise: true, maxAge: 10 * 60 * 1000 });  
 
-export const getWeatherForCoordinates = memoizee(async (latitude: number, longitude: number): Promise<DataInterface | null | undefined> => {
+export const getWeatherForCoordinates = memoizee(async (latitude: number, longitude: number): Promise<DataInterface | null > => {
     if(isNaN(latitude) || isNaN(longitude)) return null; 
     const query = `${latitude},${longitude}`;
     return fetchWeatherData(query);
