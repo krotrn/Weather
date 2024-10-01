@@ -62,9 +62,6 @@ export const WeatherProvider = ({ children }: { children: React.ReactNode }) => 
       }
     } catch (error) {
       console.error("Error fetching weather data for the coordinates.", error);
-    } finally {
-      setLatitude(null);
-      setLongitude(null);
     }
   }, [latitude, longitude]);
 
