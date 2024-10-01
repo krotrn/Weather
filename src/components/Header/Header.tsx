@@ -75,7 +75,7 @@ function Header(): JSX.Element {
             {mobile && (
               <ul
                 className={classnames(
-                  "absolute z-30 right-0 mt-2 py-2 w-48 text-[#988dcc] bg-[#0e062e] rounded-lg shadow-xl transition-opacity duration-300 ease-in-out",
+                  "absolute z-30 right-0 mt-2 py-2 w-48 text-[#988dcc] bg-[#0e062e] rounded-lg shadow-xl transition-opacity duration-300 ease-in-out z-9999",
                   {
                     "opacity-100 translate-y-0": mobile,
                     "opacity-0 -translate-y-2": !mobile,
