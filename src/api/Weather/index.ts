@@ -9,6 +9,8 @@ const apiKey: string = conf.apikey;
 const fetchWeatherData = async (query: string): Promise<DataInterface | null | undefined> => {
     try {
         const response: Response = await fetch(`${baseUrl}${apiKey}&q=${query}&aqi=yes`);
+        console.log(response);
+        
 
         if (!response.ok) {
             throw new Error(`Error fetching weather data: ${response.statusText}`);

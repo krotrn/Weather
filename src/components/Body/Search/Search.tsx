@@ -20,7 +20,7 @@ function Search() {
   const handleSearchSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
-      if (!searchCity.trim()) return; // Prevent empty searches
+      if (!searchCity.trim()) return;
       setIsFetching(true);
       await fetchDataForCity();
       setIsFetching(false);
@@ -69,8 +69,7 @@ function Search() {
         </div>
       </div>
       <div className='min-h-screen bg-blue-200 flex w-full'>
-        {/* Weather Card */}
-        <WeatherCard className='self-center' />
+        {<WeatherCard className='self-center' />}
       </div>
     </form>
   );
