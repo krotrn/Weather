@@ -70,9 +70,8 @@ function Search() {
       </div>
 
       {/* Weather Card with adjusted margin and centered alignment */}
-      <div className='flex flex-col items-center justify-center w-full py-12'>
-        {/* Ensure that WeatherCard has sufficient margin below the buttons */}
-        <div className="w-full flex justify-center mb-8">
+      <div className='flex flex-col items-center justify-center w-full mt-12'>  {/* Added margin at the top */}
+        <div className="w-full flex justify-center">
           {<WeatherCard className='mx-4 p-6 bg-white shadow-lg rounded-lg z-10' />}
         </div>
       </div>
