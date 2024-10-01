@@ -20,7 +20,6 @@ const fetchWeatherData = async (query: string): Promise<DataInterface | null> =>
 
         // Parse the JSON data
         const data: DataInterface = await response.json();
-        console.log("Data received from the weather API:", data);
         
 
         // Ensure the data is valid before returning
