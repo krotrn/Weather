@@ -5,35 +5,37 @@ import memoizee from "memoizee";
 const baseUrl: string = conf.apiUrl;
 const apiKey: string = conf.apikey;  
 
-
-const fetchWeatherData = async (query: string): Promise<DataInterface | null | undefined> => {
+const fetchWeatherData = async (query: string): Promise<DataInterface | null> => {
     try {
-        const response: Response = await fetch(`${baseUrl}${apiKey}&q=${query}&aqi=yes`);
+        const response: Response = await fetch(`${baseUrl}${apiKey}&q=${encodeURIComponent(query)}&aqi=yes`);
 
         if (!response.ok) {
-            throw new Error(`Error fetching weather data: ${response.statusText}`);
+            throw new Error(`Failed to fetch weather data: ${response.status} - ${response.statusText}`);
         }
 
         const data: DataInterface = await response.json();
-        
 
         if (!data || !data.location || !data.current) {
-            throw new Error("Invalid data format received from the weather API.");
+            throw new Error("Invalid data structure received from the weather API.");
         }
 
         return data;
     } catch (error) {
         console.error("Error in fetchWeatherData:", error);
+        throw error; 
     }
 };
 
-export const getWeatherForCity = memoizee(async (city: string): Promise<DataInterface | null | undefined> => {
+export const getWeatherForCity = memoizee(async (city: string): Promise<DataInterface | null> => {
     if (!city) return null;
     return fetchWeatherData(city);
 }, { promise: true, maxAge: 10 * 60 * 1000 });  
 
-export const getWeatherForCoordinates = memoizee(async (latitude: number, longitude: number): Promise<DataInterface | null | undefined> => {
-    if(isNaN(latitude) || isNaN(longitude)) return null; 
+export const getWeatherForCoordinates = memoizee(async (latitude: number, longitude: number): Promise<DataInterface | null> => {
+    if (isNaN(latitude) || isNaN(longitude)) {
+        console.warn("Invalid coordinates provided.");
+        return null;
+    }
     const query = `${latitude},${longitude}`;
     return fetchWeatherData(query);
 }, { promise: true, maxAge: 10 * 60 * 1000 });  
