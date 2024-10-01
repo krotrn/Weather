@@ -35,7 +35,7 @@ function Search() {
   }, [fetchDataForCoordinates]);
 
   return (
-    <form onSubmit={handleSearchSubmit} className='min-h-screen bg-blue-200 w-full'>
+    <form onSubmit={handleSearchSubmit} className='min-h-screen bg-blue-200 w-full flex flex-col items-center'>
       <div className='h-16 pt-6 justify-between w-full px-6 sm:px-24 sm:flex'>
         {/* Input field for search */}
         <Input
@@ -70,9 +70,9 @@ function Search() {
       </div>
 
       {/* Weather Card with added margin and centered alignment */}
-      <div className='min-h-screen bg-blue-200 flex items-center justify-center py-8'>
+      <div className='flex-grow flex items-center justify-center w-full py-8'>
         {/* Conditionally render Weather Card */}
-        {<WeatherCard className='self-center mx-4 p-4 bg-white shadow-lg rounded-lg' />}
+        {<WeatherCard className='mx-4 p-4 bg-white shadow-lg rounded-lg z-10' />}
       </div>
     </form>
   );
