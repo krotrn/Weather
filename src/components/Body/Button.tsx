@@ -1,8 +1,8 @@
 import React, { MouseEventHandler } from 'react'
 
-function Button({className, onClick, children, type}: {className?: string, onClick?: MouseEventHandler<HTMLButtonElement>, children: React.ReactNode, type: "submit" | "reset" | "button"}) {
+function Button({className, onClick, children, type, disabled}: {className?: string, onClick?: MouseEventHandler<HTMLButtonElement>, children: React.ReactNode, type: "submit" | "reset" | "button", disabled?: boolean}) {
     return (
-        <button className={className} type={type} onClick={onClick}>{children}</button>
+        <button className={className} type={type} onClick={onClick} disabled = {disabled}>{children}</button>
   )
 }
 
