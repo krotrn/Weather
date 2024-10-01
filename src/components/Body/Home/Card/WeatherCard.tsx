@@ -20,7 +20,7 @@ function WeatherCard({ className }: { className?: string }) {
     }
 
     return (
-        <Container className={`w-fit p-6 grid gap-6 h-fit border-black border rounded-md ${className} `}>
+        <Container className={`w-fit grid gap-6 h-fit bg-white p-5 rounded-xl bg-opacity-60 backdrop-filter backdrop-blur-lg ${className} `}>
             <div className="flex items-center justify-between">
                 <div className="flex">
                     <div className="items-center">
@@ -43,7 +43,7 @@ function WeatherCard({ className }: { className?: string }) {
                     <Icon src={Humidity} className="w-5 h-5" />
                     <div>
                         <div className="font-medium">Humidity</div>
-                        <div className="">{data?.current?.humidity ?? "--"}</div>
+                        <div className="">{data?.current?.humidity ?? "--"}%</div>
                     </div>
                 </div>
                 <div className="flex items-center gap-2">

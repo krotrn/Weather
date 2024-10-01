@@ -5,7 +5,7 @@ function Home() {
   useUserLocation();
   return (
     <>
-      <div className='min-h-screen bg-blue-200 flex w-full'>
+      <div className='min-h-screen bg-blue-200 flex min-w-full w-fit'>
         <WeatherCard className='self-center' />
       </div>
     </>

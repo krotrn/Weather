@@ -35,7 +35,7 @@ function Header(): JSX.Element {
   return (
     <>
       <header
-        className="py-3 font-medium shadow sticky bg-blue-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-60"
+        className="py-3 font-medium shadow sticky bg-blue-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-60 min-w-full w-screen"
         role="banner"
       >
         <Container>
