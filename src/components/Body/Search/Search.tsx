@@ -69,6 +69,7 @@ function Search() {
         </div>
       </div>
       <div className='min-h-screen bg-blue-200 flex w-full'>
+        {/* Conditionally render Weather Card */}
         {<WeatherCard className='self-center' />}
       </div>
     </form>
