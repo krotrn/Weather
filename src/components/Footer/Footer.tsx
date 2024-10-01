@@ -1,7 +1,6 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import Icon from '../Body/Home/Card/Icon'
-import Logo from '../../../public/Logo.svg';
+import Logo from '../../assets/icons/Logo.svg';
 
 
 function Footer(): JSX.Element {

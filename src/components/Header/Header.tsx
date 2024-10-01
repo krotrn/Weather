@@ -6,7 +6,7 @@ import { memo } from "react";
 import classnames from "classnames";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import Icon from "../Body/Home/Card/Icon";
-import Logo from '../../../public/Logo.svg';
+import Logo from '../../assets/icons/Logo.svg';
 
 
 export interface NavItem {
