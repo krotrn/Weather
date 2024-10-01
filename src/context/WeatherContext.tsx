@@ -33,9 +33,6 @@ export const WeatherProvider = ({ children }: { children: React.ReactNode }) => 
     const [latitude, setLatitude] = useState<number | null>(null);
     const [longitude, setLongitude] = useState<number | null>(null);
 
-    /**
-     * Fetch weather data based on current city
-     */
     const fetchDataForCity = useCallback(async () => {
         try {
             if (!searchCity) return;
@@ -51,9 +48,6 @@ export const WeatherProvider = ({ children }: { children: React.ReactNode }) => 
         }
     }, [searchCity]);
 
-    /**
-     * Fetch weather data based on latitude and longitude
-     */
     const fetchDataForCoordinates = useCallback(async () => {
         try {
             if (latitude === null || longitude === null) return;
@@ -69,12 +63,10 @@ export const WeatherProvider = ({ children }: { children: React.ReactNode }) => 
         }
     }, [latitude, longitude]);
 
-    // Fetch data when the city changes
     useEffect(() => {
         fetchDataForCity();
     }, [searchCity, fetchDataForCity]);
 
-    // Fetch data when the coordinates change
     useEffect(() => {
         fetchDataForCoordinates();
     }, [latitude, longitude, fetchDataForCoordinates]);

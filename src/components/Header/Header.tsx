@@ -1,5 +1,5 @@
 import { useCallback, useState, useMemo } from "react";
-import {  Link, useNavigate } from "react-router-dom"; // React-Router for navigation
+import {  Link, useNavigate } from "react-router-dom";
 import Container from "../Container/Container";
 
 import { memo } from "react";
@@ -16,9 +16,8 @@ export interface NavItem {
 
 function Header(): JSX.Element {
   const [mobile, setMobile] = useState(false);
-  const navigate = useNavigate(); // useNavigate from react-router-dom for navigation
+  const navigate = useNavigate(); 
 
-  // Memoize nav items to avoid re-creating on every render
   const navItems: NavItem[] = useMemo(
     () => [
       { label: "Home", slug: "/" },
@@ -27,7 +26,6 @@ function Header(): JSX.Element {
     []
   );
 
-  // Memoized toggle function to avoid unnecessary re-renders
   const toggleMobile = useCallback(() => {
     setMobile((prevMobile) => !prevMobile);
   }, []);
@@ -90,7 +88,7 @@ function Header(): JSX.Element {
                       className="inline-block px-6 py-2 text-[#3e8aed] hover:bg-[rgb(3,139,217)] hover:text-white duration-200 rounded-md"
                       onClick={() => {
                         navigate(item.slug);
-                        setMobile(false); // Close mobile menu on navigation
+                        setMobile(false); 
                       }}
                     >
                       {item.label}
@@ -106,4 +104,4 @@ function Header(): JSX.Element {
   );
 }
 
-export default memo(Header); // Memoize Header component for performance
+export default memo(Header); 

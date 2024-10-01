@@ -2,16 +2,14 @@ import { useContext } from "react";
 import { WeatherContext } from "../context/WeatherContext";
 
 const options = {
-    enableHighAccuracy: true,  // Ask for the most accurate location possible (may take more time and use more battery)
-    timeout: 5000,             // Timeout in milliseconds
-    maximumAge: 0              // Cache duration for the location
+    enableHighAccuracy: true,  
+    timeout: 5000,             
+    maximumAge: 0              
 };
 
 function useUserLocation() {
-    // Check if Geolocation API is supported
     const {setLatitude, setLongitude} = useContext(WeatherContext);
     if (navigator.geolocation) {
-        // Request the user's current position
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 const latitude = position.coords.latitude;
@@ -20,7 +18,6 @@ function useUserLocation() {
                 setLongitude(longitude);
             },
             (error) => {
-                // Handle errors
                 switch (error.code) {
                     case error.PERMISSION_DENIED:
                         console.log("User denied the request for Geolocation.");

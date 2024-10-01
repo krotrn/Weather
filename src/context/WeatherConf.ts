@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { WeatherContext, WeatherContextType } from "./WeatherContext";
 
-// Enhanced useWeather hook with error handling and type safety
+
 export const useWeather = (): WeatherContextType => {
     const context = useContext(WeatherContext);
 
