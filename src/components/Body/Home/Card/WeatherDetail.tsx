@@ -1,4 +1,3 @@
-import React from 'react'
 import Icon from './Icon';
 
 function WeatherDetail({ icon, label, value, subValue }: { icon: string; label: string; value: string; subValue?: string }) {
