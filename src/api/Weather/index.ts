@@ -38,6 +38,7 @@ const fetchWeatherData = async (query: string): Promise<DataInterface | null> =>
  * Fetch weather data for a city name. Memoized to avoid redundant network calls.
  */
 export const getWeatherForCity = memoizee(async (city: string): Promise<DataInterface | null> => {
+    if (!city) return null;
     return fetchWeatherData(city);
 }, { promise: true, maxAge: 10 * 60 * 1000 });  // Cache result for 10 minutes
 
@@ -45,6 +46,7 @@ export const getWeatherForCity = memoizee(async (city: string): Promise<DataInte
  * Fetch weather data for specific latitude and longitude coordinates. Memoized.
  */
 export const getWeatherForCoordinates = memoizee(async (latitude: number, longitude: number): Promise<DataInterface | null> => {
+    if(isNaN(latitude) || isNaN(longitude)) return null; 
     const query = `${latitude},${longitude}`;
     return fetchWeatherData(query);
 }, { promise: true, maxAge: 10 * 60 * 1000 });  // Cache result for 10 minutes

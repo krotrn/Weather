@@ -1,3 +1,7 @@
+import { useCallback, useContext, useEffect, useState } from "react";
+import { getWeatherForCity, getWeatherForCoordinates } from "../../api/Weather";
+import { WeatherContext } from "../../context/WeatherContext";
+
 export interface DataInterface {
     "location": {
         "name": string,
@@ -7,7 +11,7 @@ export interface DataInterface {
         "lon": number,
         "tz_id": string,
         "localtime_epoch": number,
-        "localtime": string | "2024-10-01 07:16"
+        "localtime": string | "2024-10-01 07:16";
     },
     "current": {
         "last_updated_epoch": number,
@@ -18,7 +22,7 @@ export interface DataInterface {
         "condition": {
             "text": string,
             "icon": string,
-            "code": number
+            "code": number;
         },
         "wind_mph": number,
         "wind_kph": number,
@@ -51,11 +55,12 @@ export interface DataInterface {
             "pm2_5": number,
             "pm10": number,
             "us-epa-index": number,
-            "gb-defra-index": number
-        }
-    }
+            "gb-defra-index": number;
+        };
+    };
 }
-export const DefaultData:DataInterface = {
+
+export const Default:DataInterface = {
     "location": {
         "name": "London",
         "region": "City of London, Greater London",
@@ -64,7 +69,7 @@ export const DefaultData:DataInterface = {
         "lon": -0.11,
         "tz_id": "Europe/London",
         "localtime_epoch": 1727763402,
-        "localtime": "2024-10-01 07:16"
+        "localtime": "2024-10-01 07:16",
     },
     "current": {
         "last_updated_epoch": 1727763300,
@@ -75,7 +80,7 @@ export const DefaultData:DataInterface = {
         "condition": {
             "text": "Light rain",
             "icon": "//cdn.weatherapi.com/weather/64x64/day/296.png",
-            "code": 1183
+            "code": 1183,
         },
         "wind_mph": 10.5,
         "wind_kph": 16.9,
@@ -108,9 +113,44 @@ export const DefaultData:DataInterface = {
             "pm2_5": 6.66,
             "pm10": 10.36,
             "us-epa-index": 1,
-            "gb-defra-index": 1
+            "gb-defra-index": 1,
+        },
+    },
+};
+
+const useFetchedData = () => {
+    const { latitude, longitude, searchCity } = useContext(WeatherContext);
+    const [data, setData] = useState<DataInterface>(Default);
+
+    const fetchDataForCity = useCallback(async () => {
+        try {
+            if (!searchCity) return;
+            const response = await getWeatherForCity(searchCity);
+            if (response) setData(response);
+        } catch (error) {
+            console.error("Error fetching weather data:", error);
         }
-    }
-}
+    }, [searchCity]);
 
+    const fetchDataForCoordinates = useCallback(async () => {
+        try {
+            if (!latitude || !longitude) return fetchDataForCity();
+            const response = await getWeatherForCoordinates(latitude, longitude);
+            if (response) setData(response);
+        } catch (error) {
+            console.error("Error fetching weather data:", error);
+        }
+    }, [latitude, longitude, fetchDataForCity]);
 
+    useEffect(() => {
+        if (latitude && longitude) {
+            fetchDataForCoordinates();
+        } else if (searchCity) {
+            fetchDataForCity();
+        }
+    }, [fetchDataForCity, fetchDataForCoordinates, latitude, longitude, searchCity]);
+
+    return data;
+};
+
+export default useFetchedData;

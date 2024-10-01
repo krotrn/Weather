@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect, useCallback } from "react";
 import { getWeatherForCity, getWeatherForCoordinates } from "../api/Weather/index";
-import { DataInterface, DefaultData } from "../components/Default/DefaultData";
+import useFetchedData , { DataInterface, Default } from "../components/Default/DefaultData";
 
 export interface WeatherContextType {
     data: DataInterface;
@@ -10,19 +10,24 @@ export interface WeatherContextType {
     setLatitude: React.Dispatch<React.SetStateAction<number | null>>;
     setLongitude: React.Dispatch<React.SetStateAction<number | null>>;
     fetchDataForCoordinates: () => Promise<void>;
+    latitude: number | null;
+    longitude: number | null;
 }
 
 export const WeatherContext = createContext<WeatherContextType>({
-    data: DefaultData,
+    data: Default,
     searchCity: "",
     setSearchCity: () => {},
     fetchDataForCity: async () => {},
     setLatitude: () => {},
     setLongitude: () => {},
-    fetchDataForCoordinates: async () => {},
+    fetchDataForCoordinates: async () => { },
+    latitude: null,
+    longitude: null,
 });
 
 export const WeatherProvider = ({ children }: { children: React.ReactNode }) => {
+    const DefaultData: DataInterface = useFetchedData();
     const [data, setData] = useState<DataInterface>(DefaultData);
     const [searchCity, setSearchCity] = useState<string>("");
     const [latitude, setLatitude] = useState<number | null>(null);
@@ -75,7 +80,7 @@ export const WeatherProvider = ({ children }: { children: React.ReactNode }) => 
     }, [latitude, longitude, fetchDataForCoordinates]);
 
     return (
-        <WeatherContext.Provider value={{ data, searchCity, setSearchCity, fetchDataForCity, setLatitude, setLongitude, fetchDataForCoordinates }}>
+        <WeatherContext.Provider value={{ data, searchCity, setSearchCity, fetchDataForCity, setLatitude, setLongitude, fetchDataForCoordinates, latitude, longitude}}>
             {children}
         </WeatherContext.Provider>
     );
