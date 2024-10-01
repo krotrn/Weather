@@ -1,13 +1,29 @@
-import React, { useId } from 'react'
-import { useWeather } from '../../../context/WeatherConf'
+import React, { useId } from 'react';
 
-const Input = React.forwardRef(function Input({ placeholder, value, onChange, className }: { placeholder: string, value?: string, onChange: (e: React.ChangeEvent<HTMLInputElement>) => void, className: string }, ref: React.Ref<HTMLInputElement>) {
-    useWeather();
-    const id = useId();
+interface InputProps {
+  placeholder: string;
+  value?: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  className: string;
+}
 
-    return (
-        <input placeholder={placeholder} type="text" value={value} onChange={onChange} id={id} ref={ref} className={`px-4 py-2 ${className}`} />
-    )
-})
+const Input = React.forwardRef<HTMLInputElement, InputProps>(function Input(
+  { placeholder, value, onChange, className },
+  ref
+) {
+  const id = useId();
 
-export default Input
+  return (
+    <input
+      id={id}
+      type="text"
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+      ref={ref}
+      className={`px-4 py-2 ${className}`}
+    />
+  );
+});
+
+export default Input;
