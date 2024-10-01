@@ -2,12 +2,12 @@ import { useCallback, useState, useMemo } from "react";
 import {  Link, useNavigate } from "react-router-dom"; // React-Router for navigation
 import Container from "../Container/Container";
 
-import { memo, lazy } from "react";
+import { memo } from "react";
 import classnames from "classnames";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
+import Icon from "../Body/Home/Card/Icon";
+import Logo from '../../../public/Logo.svg';
 
-// Lazy load Logo component for better performance
-const LazyLogo = lazy(() => import("../../assets/Logo"));
 
 export interface NavItem {
   label: string;
@@ -41,11 +41,11 @@ function Header(): JSX.Element {
         <Container>
           <nav className="flex" role="navigation" aria-label="Main navigation">
             {/* Lazy-loaded Logo */}
-            <ErrorBoundary>
               <Link to={"/"}>
-                <LazyLogo width="50" />
+              <ErrorBoundary>
+                <Icon src={Logo} alt="Logo" className="bg-cover w-12" />
+                </ErrorBoundary>
               </Link>
-            </ErrorBoundary>
             {/* Mobile menu button */}
             <button
               aria-label="Toggle mobile menu"

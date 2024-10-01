@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Icon from '../Body/Home/Card/Icon'
+import Logo from '../../../public/Logo.svg';
 
-const LazyLogo = React.lazy(() => import('../../assets/Logo'))
 
 function Footer(): JSX.Element {
   return (
@@ -12,7 +13,7 @@ function Footer(): JSX.Element {
           <div className="w-full p-6 md:w-1/2 lg:w-5/12">
             <div className="flex h-full flex-col justify-between">
               <div className="mb-4 sm:inline-flex items-center ">
-                <LazyLogo className = 'bg-cover max-h-[12rem]' />
+                <Icon src={Logo}  className = 'bg-cover max-h-[12rem]' />
               </div>
 
               <div>

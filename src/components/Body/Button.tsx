@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { MouseEventHandler } from 'react'
 
-function Button({className, onClick, children}: {className?: string, onClick?: () => void, children: React.ReactNode}) {
+function Button({className, onClick, children, type}: {className?: string, onClick?: MouseEventHandler<HTMLButtonElement>, children: React.ReactNode, type: "submit" | "reset" | "button"}) {
     return (
-        <button className={className} onClick={onClick}>{children}</button>
+        <button className={className} type={type} onClick={onClick}>{children}</button>
   )
 }
 

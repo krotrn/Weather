@@ -1,12 +1,12 @@
 import Container from '../../../Container/Container';
 import Icon from './Icon';
-import { useWeather } from '../../../../context/WeatherContext';
 import { format, parse } from 'date-fns';
 import { DataInterface } from '../../../Default/DefaultData';
+import { useWeather } from '../../../../context/WeatherConf';
 
 function WeatherCard({ className }: { className?: string }) {
     
-    const { data }:{data:DataInterface} = useWeather();
+    const { data }: { data: DataInterface } = useWeather();
     let formattedDate:string = ""
     const dateString = data?.location?.localtime;
     if (dateString) {
@@ -14,16 +14,16 @@ function WeatherCard({ className }: { className?: string }) {
         if (parsedDate === 'Invalid Date') {
             formattedDate = format(parsedDate, 'MMMM dd, yyyy');
         }
-        
     }
 
     return (
-        <Container className={`w-full max-w-sm p-6 grid gap-6 h-fit border-black border rounded-md ${className} `}>
+        <Container className={`w-fit p-6 grid gap-6 h-fit border-black border rounded-md ${className} `}>
             <div className="flex items-center justify-between">
-                <div className="grid gap-2">
-                    <div className="flex items-center gap-2">
+                <div className="flex">
+                    <div className="items-center">
                         <Icon className="w-5 h-5" />
-                        <h3 className="text-xl font-semibold">{`${data?.location?.name ?? "--"} ${data?.location?.region ?? "--"} ${data?.location?.country ?? "--"}`}</h3>
+                        <h3 className="text-xl font-semibold">{`${data?.location?.region ?? "--"} ${data?.location?.country ?? "--"}`}</h3>
+                        <h3 className="text-s font-semibold">{`${data?.location?.name ?? "--"} ${data?.location?.country ?? "--"}`}</h3>
                     </div>
                     <div className="">{formattedDate  ?? "--"}</div>
                 </div>

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 import { getWeatherForCity } from "../api/Weather";
 import { DataInterface, DefaultData } from "../components/Default/DefaultData";
 
@@ -9,16 +9,13 @@ interface WeatherContextType {
     fetchData: () => void;
 }
 
-const WeatherContext = createContext<WeatherContextType>({
+export const WeatherContext = createContext<WeatherContextType>({
     data: DefaultData,
     searchCity: "",
     setSearchCity: () => {},
     fetchData: () => {}
 });
 
-export const useWeather = () => {
-    return useContext(WeatherContext);
-}
 
 
 export const WeatherProvider = ({ children }: { children: React.ReactNode }) => {
