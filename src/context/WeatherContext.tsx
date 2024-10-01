@@ -24,7 +24,7 @@ export const WeatherContext = createContext<WeatherContextType>({
 
 export const WeatherProvider = ({ children }: { children: React.ReactNode }) => {
     const [data, setData] = useState<DataInterface>(DefaultData);
-    const [searchCity, setSearchCity] = useState<string>("London");
+    const [searchCity, setSearchCity] = useState<string>("");
     const [latitude, setLatitude] = useState<number | null>(null);
     const [longitude, setLongitude] = useState<number | null>(null);
 
