@@ -25,8 +25,8 @@ function WeatherCard({ className }: { className?: string }) {
                 <div className="flex">
                     <div className="items-center">
                         <Icon src={Location} className="w-5 h-5" />
-                        <h3 className="text-xl font-semibold">{`${data?.location?.region ?? "--"} ${data?.location?.country ?? "--"}`}</h3>
-                        <h3 className="text-s font-semibold">{`${data?.location?.name ?? "--"} ${data?.location?.country ?? "--"}`}</h3>
+                        <h3 className="text-xl font-semibold">{`${data?.location?.name ?? "--"} ${data?.location?.country ?? "--"}`}</h3>
+                        <h3 className="text-s font-semibold">{`${data?.location?.region ?? "--"} ${data?.location?.country ?? "--"}`}</h3>
                     </div>
                     <div className="">{formattedDate  ?? "--"}</div>
                 </div>
