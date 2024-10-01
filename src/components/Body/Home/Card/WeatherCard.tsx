@@ -6,57 +6,94 @@ import { useWeather } from '../../../../context/WeatherConf';
 import Location from '../../../../assets/icons/Location.svg';
 import Wind from '../../../../assets/icons/Wind.svg';
 import Humidity from '../../../../assets/icons/Humidity.svg';
+import AirQuality from '../../../../assets/icons/AirQuality.svg';
 
 function WeatherCard({ className }: { className?: string }) {
-    
-    const { data }: { data: DataInterface } = useWeather();
-    let formattedDate:string = ""
-    const dateString = data?.location?.localtime;
-    if (dateString) {
-        const parsedDate = parse(dateString, 'yyyy-MM-dd HH:mm', new Date()).toString();
-        if (parsedDate === 'Invalid Date') {
-            formattedDate = format(parsedDate, 'MMMM dd, yyyy');
-        }
+  const { data }: { data: DataInterface } = useWeather();
+
+  // Parse and format the date
+  let formattedDate = "--";
+  const dateString = data?.location?.localtime;
+  if (dateString) {
+    try {
+      const parsedDate = parse(dateString, 'yyyy-MM-dd HH:mm', new Date());
+      formattedDate = format(parsedDate, 'MMMM dd, yyyy HH:mm');
+    } catch (error) {
+      console.error("Error parsing date:", error);
     }
+  }
 
-    return (
-        <Container className={`w-fit grid gap-6 h-fit bg-white p-5 rounded-xl bg-opacity-60 backdrop-filter backdrop-blur-lg ${className} `}>
-            <div className="flex items-center justify-between">
-                <div className="flex">
-                    <div className="items-center">
-                        <Icon src={Location} className="w-5 h-5" />
-                        <h3 className="text-xl font-semibold">{`${data?.location?.name ?? "--"} ${data?.location?.country ?? "--"}`}</h3>
-                        <h3 className="text-s font-semibold">{`${data?.location?.region ?? "--"} ${data?.location?.country ?? "--"}`}</h3>
-                    </div>
-                    <div className="">{formattedDate  ?? "--"}</div>
-                </div>
-                <div className="flex items-center gap-4">
-                    <div className="text-8xl font-bold">{`${data?.current?.temp_c  ?? "--"}°`}</div>
-                    <div className="grid gap-2">
-                        <Icon src={data?.current?.condition?.icon} className="w-10 h-10" />
-                        <div className="">{`${data?.current?.condition?.text ?? "--"}`}</div>
-                    </div>
-                </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-                <div className="flex items-center gap-2">
-                    <Icon src={Humidity} className="w-5 h-5" />
-                    <div>
-                        <div className="font-medium">Humidity</div>
-                        <div className="">{data?.current?.humidity ?? "--"}%</div>
-                    </div>
-                </div>
-                <div className="flex items-center gap-2">
-                    <Icon src={Wind} className="w-5 h-5" />
-                    <div>
-                        <div className="font-medium">Wind</div>
-                        <div className="">{data?.current?.wind_mph ?? "--"} mph</div>
-                    </div>
-                </div>
-            </div>
-        </Container>
+  // Handling air quality data
+  const airQuality = data?.current?.air_quality;
+  const airQualityIndex = airQuality ? airQuality["us-epa-index"] : "--";
 
-    )
+  return (
+    <Container className={`w-fit grid gap-6 h-fit bg-white p-5 rounded-xl bg-opacity-60 backdrop-filter shadow-[rgba(0,0,0,0.35)_0px_5px_15px] backdrop-blur-lg ${className} `}>
+      {/* Location and Date */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-start gap-2">
+          <Icon src={Location} className="h-10" />
+          <div>
+            <h3 className="text-xl font-semibold">{`${data?.location?.name ?? "--"}, ${data?.location?.country ?? "--"}`}</h3>
+            <h4 className="text-sm font-semibold">{`${data?.location?.region ?? "--"}`}</h4>
+            <p className="text-xs">{formattedDate}</p>
+          </div>
+        </div>
+        {/* Temperature and Weather Condition */}
+        <div className="flex items-center gap-4">
+          <div className="text-8xl font-bold">{`${data?.current?.temp_c ?? "--"}°C`}</div>
+          <div className="text-3xl">{`${data?.current?.temp_f ?? "--"}°F`}</div>
+          <div className="grid gap-2">
+            <Icon src={data?.current?.condition?.icon ?? ""} className="h-20" />
+            <div className="text-center text-sm font-semibold">{`${data?.current?.condition?.text ?? "--"}`}</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Weather Details */}
+      <div className="grid grid-cols-2 gap-4">
+        {/* Humidity */}
+        <div className="flex items-center gap-2">
+          <Icon src={Humidity} className="h-10" />
+          <div>
+            <div className="font-medium">Humidity</div>
+            <div>{data?.current?.humidity ?? "--"}%</div>
+          </div>
+        </div>
+
+        {/* Wind */}
+        <div className="flex items-center gap-2">
+          <Icon src={Wind} className="h-10" />
+          <div>
+            <div className="font-medium">Wind</div>
+            <div>{data?.current?.wind_mph ?? "--"} mph</div>
+            <div>{data?.current?.wind_kph ?? "--"} kph</div>
+          </div>
+        </div>
+
+        {/* Air Quality */}
+        <div className="flex items-center gap-2">
+          <Icon src={AirQuality} className="h-10" />
+          <div>
+            <div className="font-medium">Air Quality</div>
+            <div>US-EPA Index: {airQualityIndex}</div>
+            <div>CO: {airQuality?.co?.toFixed(2) ?? "--"} µg/m³</div>
+            <div>PM2.5: {airQuality?.pm2_5?.toFixed(2) ?? "--"} µg/m³</div>
+          </div>
+        </div>
+
+        {/* Visibility */}
+        <div className="flex items-center gap-2">
+          <Icon src={Location} className="h-10" />
+          <div>
+            <div className="font-medium">Visibility</div>
+            <div>{data?.current?.vis_km ?? "--"} km</div>
+            <div>{data?.current?.vis_miles ?? "--"} miles</div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  );
 }
 
 export default WeatherCard;
