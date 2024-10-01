@@ -32,9 +32,9 @@ function WeatherCard({ className }: { className?: string }) {
     const airQualityIndex = airQuality ? airQuality["us-epa-index"] : "--";
 
     return (
-        <Container className={`w-fit grid gap-6 p-5 h-fit bg-white rounded-xl bg-opacity-60 shadow-[rgba(0,0,0,0.35)_0px_5px_15px] backdrop-blur-lg ${className}`}>
+        <Container className={`w-full max-w-4xl grid gap-6 p-5 h-fit bg-white rounded-xl bg-opacity-60 shadow-[rgba(0,0,0,0.35)_0px_5px_15px] backdrop-blur-lg ${className}`}>
             {/* Location and Date */}
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between">
                 <div className="flex items-start gap-2">
                     <Icon src={Location} className="h-10" />
                     <div>
@@ -46,19 +46,19 @@ function WeatherCard({ className }: { className?: string }) {
                     </div>
                 </div>
                 {/* Temperature and Weather Condition */}
-                <div className="flex items-center gap-4">
-                    <Icon src={Temperature} className="h-20" />
-                    <div className="text-8xl font-bold">{`${data?.current?.temp_c ?? "--"}°C`}</div>
-                    <div className="text-3xl">{`${data?.current?.temp_f ?? "--"}°F`}</div>
+                <div className="flex items-center gap-4 mt-4 md:mt-0">
+                    <Icon src={Temperature} className="h-16 md:h-20" />
+                    <div className="text-6xl md:text-8xl font-bold">{`${data?.current?.temp_c ?? "--"}°C`}</div>
+                    <div className="hidden md:block text-3xl">{`${data?.current?.temp_f ?? "--"}°F`}</div>
                     <div className="grid gap-2 text-center">
-                        <Icon src={data?.current?.condition?.icon ?? ""} className="h-20" />
+                        <Icon src={data?.current?.condition?.icon ?? ""} className="h-16 md:h-20" />
                         <div className="text-sm font-semibold">{`${data?.current?.condition?.text ?? "--"}`}</div>
                     </div>
                 </div>
             </div>
 
             {/* Weather Details */}
-            <div className="flex flex-wrap justify-between">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="grid gap-4">
                     {/* Humidity */}
                     <WeatherDetail icon={Humidity} label="Humidity" value={`${data?.current?.humidity ?? "--"}%`} />
@@ -97,7 +97,5 @@ function WeatherCard({ className }: { className?: string }) {
         </Container>
     );
 }
-
-
 
 export default WeatherCard;
