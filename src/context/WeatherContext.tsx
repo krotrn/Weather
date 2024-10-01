@@ -34,20 +34,18 @@ export const WeatherProvider = ({ children }: { children: React.ReactNode }) => 
   const [longitude, setLongitude] = useState<number | null>(null);
 
   const fetchDataForCity = useCallback(async () => {
-    if (!searchCity) return; // Avoid empty searches
+    if (!searchCity) return;
 
     try {
       const response = await getWeatherForCity(searchCity);
       if (response) {
         setData(response);
-        console.error(null); // Clear any previous errors
+        console.error(null);
       } else {
         console.error("No data returned from the weather API.");
       }
     } catch (error) {
       console.error("Error fetching weather data for the city.", error);
-    }finally{
-        setSearchCity("");
     }
   }, [searchCity]);
 
