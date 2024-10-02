@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import { getWeatherForCoordinates } from '../api/Weather/index';
+import { getWeatherForCoordinates, getWeatherForCity } from '../api/Weather/index';
 import { useWeather } from '../context/WeatherConf';
 
 const useUserLocation = () => {
@@ -7,6 +7,24 @@ const useUserLocation = () => {
     const [error, setError] = useState<string | null>(null);
     const [isFetching, setIsFetching] = useState<boolean>(false);
     const [locationSuccess, setLocationSuccess] = useState<boolean>(false);
+
+    const fetchDefaultLocation = useCallback(async () => {
+        try {
+            const weatherData = await getWeatherForCity("Delhi, India");
+            if (weatherData) {
+                setData(weatherData); // Fallback to Delhi, India weather data
+                setLocationSuccess(true);
+            } else {
+                setLocationSuccess(false);
+                setError("Failed to fetch weather data for default location.");
+            }
+        } catch (fetchError) {
+            console.error("Error fetching weather data for default location:", fetchError);
+            setError("Error fetching weather data for default location.");
+        } finally {
+            setIsFetching(false);
+        }
+    }, [setData]);
 
     const fetchLocation = useCallback(() => {
         setIsFetching(true);
@@ -20,7 +38,7 @@ const useUserLocation = () => {
                     try {
                         const weatherData = await getWeatherForCoordinates(latitude, longitude);
                         if (weatherData) {
-                            setData(weatherData); // Update the context with the fetched weather data
+                            setData(weatherData);
                             setLocationSuccess(true);
                         } else {
                             setLocationSuccess(false);
@@ -51,20 +69,22 @@ const useUserLocation = () => {
                             setError("An unknown error occurred.");
                             break;
                     }
+                    fetchDefaultLocation();
                 }
             );
         } else {
             console.warn("Geolocation is not supported by this browser.");
             setError("Geolocation is not supported by this browser.");
             setIsFetching(false);
+            fetchDefaultLocation();
         }
-    }, [setData]);
+    }, [fetchDefaultLocation, setData]);
 
-  useEffect(() => {
-    fetchLocation();
-  }, [setData, fetchLocation]);
+    useEffect(() => {
+        fetchLocation();
+    }, [fetchLocation]);
 
-    return { 
+    return {
         fetchLocation,
         error,
         isFetching,
