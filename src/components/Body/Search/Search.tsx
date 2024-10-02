@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import Input from './Input';
 import Button from '../Button';
 import { useWeather } from '../../../context/WeatherConf';
@@ -64,7 +64,7 @@ function Search() {
       {/* Display any errors from location fetching */}
 
 {locationError && (
-  <div className="flex items-center p-4 mb-4 text-sm text-red-700 bg-red-100/30 backdrop-blur-md rounded-lg shadow-lg m-5 border border-white/20" role="alert">
+  <div className="flex items-center p-4 my-24 md:my-4 text-sm text-red-700 bg-red-100/30 backdrop-blur-md rounded-lg shadow-lg m-5 border border-white/20" role="alert">
     <svg
       aria-hidden="true"
       className="w-5 h-5 mr-2 text-red-700"
@@ -87,11 +87,11 @@ function Search() {
       {/* Weather card */}
       <div className='flex flex-col items-center justify-center w-full'>
         <div className="w-full flex justify-center">
-          <WeatherCard className='mx-4 p-6 bg-white shadow-lg rounded-lg z-10 my-24' />
+          <WeatherCard className='mx-4 p-6 bg-white shadow-lg rounded-lg z-10 my-0' />
         </div>
       </div>
     </form>
   );
 }
 
-export default Search;
+export default memo(Search);

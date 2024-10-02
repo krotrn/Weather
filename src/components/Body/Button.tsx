@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from 'react'
+import React, { memo, MouseEventHandler } from 'react'
 
 function Button({className, onClick, children, type, disabled}: {className?: string, onClick?: MouseEventHandler<HTMLButtonElement>, children: React.ReactNode, type: "submit" | "reset" | "button", disabled: boolean}) {
     return (
@@ -6,4 +6,4 @@ function Button({className, onClick, children, type, disabled}: {className?: str
   )
 }
 
-export default Button
+export default memo(Button)

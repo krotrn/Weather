@@ -1,5 +1,6 @@
 import WeatherCard from './Card/WeatherCard'
 import useUserLocation from '../../../api/UserLocation'
+import { memo } from 'react';
 
 function Home() {
   useUserLocation();
@@ -12,4 +13,4 @@ function Home() {
   )
 }
 
-export default Home
+export default memo(Home)

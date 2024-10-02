@@ -13,6 +13,7 @@ import Pressure from '../../../../assets/icons/Pressure.svg';
 import UV from '../../../../assets/icons/UV.svg';
 import Precipitation from '../../../../assets/icons/Precipitation.svg';
 import WeatherDetail from './WeatherDetail';
+import { memo } from 'react';
 
 function WeatherCard({ className }: { className?: string }) {
     const { data }: { data: DataInterface } = useWeather();
@@ -98,4 +99,4 @@ function WeatherCard({ className }: { className?: string }) {
     );
 }
 
-export default WeatherCard;
+export default memo(WeatherCard);

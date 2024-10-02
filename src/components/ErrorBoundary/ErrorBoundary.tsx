@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React, { memo, Suspense } from 'react'
 import Loading from '../../assets/Loading';
 
 const ErrorBoundary = ({ children, className }: { children: React.ReactNode, className?: string }) => (
@@ -8,4 +8,4 @@ const ErrorBoundary = ({ children, className }: { children: React.ReactNode, cla
         {children}
     </Suspense>
 );
-export default ErrorBoundary
+export default memo(ErrorBoundary)

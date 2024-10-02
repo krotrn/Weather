@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import Icon from '../Body/Home/Card/Icon'
 import Logo from '../../assets/icons/Logo.svg';
+import { memo } from 'react';
 
 
 function Footer(): JSX.Element {
@@ -148,4 +149,4 @@ function Footer(): JSX.Element {
   )
 }
 
-export default Footer
+export default memo(Footer)

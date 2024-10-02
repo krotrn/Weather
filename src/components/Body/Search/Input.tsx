@@ -1,4 +1,4 @@
-import React, { useId } from 'react';
+import React, { memo, useId } from 'react';
 
 interface InputProps {
   placeholder: string;
@@ -26,4 +26,4 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(function Input(
   );
 });
 
-export default Input;
+export default memo(Input);
