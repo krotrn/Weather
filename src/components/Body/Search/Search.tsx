@@ -62,7 +62,8 @@ function Search() {
       </div>
 
       {/* Display any errors from location fetching */}
-      {locationError && <p className='text-red-600'>{locationError}</p>}
+      
+      {locationError && <p className='text-red-600 m-5'>{locationError}</p>}
 
       {/* Weather card */}
       <div className='flex flex-col items-center justify-center w-full'> 
