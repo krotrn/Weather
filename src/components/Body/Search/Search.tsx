@@ -11,7 +11,6 @@ function Search() {
   const handleCityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchCity(value);
-    // Automatically fetch current location if the input is cleared
     if (!value) {
       fetchDataForCoordinates();
     }
@@ -50,7 +49,7 @@ function Search() {
           <Button
             className={`inline-block px-6 py-2 min-h-12 h-fit bg-blue-400 text-[#164b8f] hover:bg-[rgb(3,139,217)] mx-2 sm:mx-2 hover:text-white duration-200 rounded-md ${!searchCity ? 'opacity-50 cursor-not-allowed' : ''}`}
             type="submit"
-            disabled={!searchCity || isFetching} // Disable when input is empty or fetching
+            disabled={!searchCity || isFetching}
             aria-label='Search'
           >
             {isFetching ? 'Searching...' : 'SEARCH'}
@@ -68,11 +67,10 @@ function Search() {
           </Button>
         </div>
       </div>
-
-      {/* Weather Card with adjusted margin and centered alignment */}
-      <div className='flex flex-col items-center justify-center w-full mt-12'>  {/* Added margin at the top */}
+      {/* Weather card */}
+      <div className='flex flex-col items-center justify-center w-full'> 
         <div className="w-full flex justify-center">
-          {<WeatherCard className='mx-4 p-6 bg-white shadow-lg rounded-lg z-10' />}
+          {<WeatherCard className='mx-4 p-6 bg-white shadow-lg rounded-lg z-10  my-24' />}
         </div>
       </div>
     </form>
