@@ -2,8 +2,8 @@ import React, { memo, useCallback, useState } from 'react';
 import Input from './Input';
 import Button from '../Button';
 import { useWeather } from '../../../context/WeatherConf';
-import WeatherCard from '../Home/Card/WeatherCard';
 import useUserLocation from '../../../api/UserLocation';
+import Home from '../Home/Home';
 
 function Search() {
   const { searchCity, fetchDataForCity, setSearchCity } = useWeather();
@@ -28,7 +28,7 @@ function Search() {
 
   return (
     <form onSubmit={handleSearchSubmit} className='min-h-screen bg-blue-200 w-full flex flex-col items-center'>
-      <div className='h-16 pt-6 justify-between w-full px-6 sm:px-24 sm:flex'>
+      <div className='h-fit pt-6 justify-between w-full px-6 sm:px-24 sm:flex'>
         {/* Input field for search */}
         <Input
           placeholder='Search for a city'
@@ -63,29 +63,27 @@ function Search() {
 
       {/* Display any errors from location fetching */}
 
-{locationError && (
-  <div className="flex items-center p-4 my-24 md:my-4 text-sm text-red-700 bg-red-100/30 backdrop-blur-md rounded-lg shadow-lg m-5 border border-white/20" role="alert">
-    <svg
-      aria-hidden="true"
-      className="w-5 h-5 mr-2 text-red-700"
-      fill="currentColor"
-      viewBox="0 0 20 20"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        fillRule="evenodd"
-        d="M18 8a1 1 0 00-1-1H3a1 1 0 000 2h14a1 1 0 001-1zM10 18a8 8 0 100-16 8 8 0 000 16zm0-14a6 6 0 110 12 6 6 0 010-12z"
-        clipRule="evenodd"
-      ></path>
-    </svg>
-    <span className="font-medium">Location Error:</span> {locationError}
-  </div>
-)}
+      {locationError && (
+        <div className="flex items-center p-4 my-24 md:my-4 text-sm text-red-700 bg-red-100/30 backdrop-blur-md rounded-lg shadow-lg m-5 border border-white/20" role="alert">
+          <svg
+            aria-hidden="true"
+            className="w-5 h-5 mr-2 text-red-700"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fillRule="evenodd"
+              d="M18 8a1 1 0 00-1-1H3a1 1 0 000 2h14a1 1 0 001-1zM10 18a8 8 0 100-16 8 8 0 000 16zm0-14a6 6 0 110 12 6 6 0 010-12z"
+              clipRule="evenodd"
+            ></path>
+          </svg>
+          <span className="font-medium">Location Error:</span> {locationError}
+        </div>
+      )}
       {/* Weather card */}
       <div className='flex flex-col items-center justify-center w-full'>
-        <div className="w-full flex justify-center">
-          <WeatherCard className='mx-4 p-6 bg-white shadow-lg rounded-lg z-10 my-24' />
-        </div>
+        < Home className='my-24' />
       </div>
     </form>
   );
