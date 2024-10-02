@@ -13,6 +13,7 @@ export interface WeatherContextType {
   setLongitude: React.Dispatch<React.SetStateAction<number | null>>;
   latitude: number | null;
   longitude: number | null;
+  setData: React.Dispatch<React.SetStateAction<DataInterface>>;
 }
 
 // Create default values for the context
@@ -23,7 +24,8 @@ export const WeatherContext = createContext<WeatherContextType>({
   fetchDataForCity: async () => {},
   fetchDataForCoordinates: async () => {},
   setLatitude: () => {},
-  setLongitude: () => {},
+  setLongitude: () => { },
+  setData: () => {},
   latitude: null,
   longitude: null,
 });
@@ -96,6 +98,7 @@ export const WeatherProvider = ({ children }: { children: React.ReactNode }) => 
         fetchDataForCoordinates,
         latitude,
         longitude,
+        setData,
       }}
     >
       {children}

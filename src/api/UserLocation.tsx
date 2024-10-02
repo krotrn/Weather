@@ -1,69 +1,75 @@
-import { useEffect, useContext, useState, useCallback } from "react";
-import { WeatherContext } from "../context/WeatherContext";
+import { useEffect, useState, useCallback } from 'react';
+import { getWeatherForCoordinates } from '../api/Weather/index';
+import { useWeather } from '../context/WeatherConf';
 
-const options = {
-  enableHighAccuracy: true,
-  timeout: 10000,
-  maximumAge: 0,
-};
+const useUserLocation = () => {
+    const { setData } = useWeather();
+    const [error, setError] = useState<string | null>(null);
+    const [isFetching, setIsFetching] = useState<boolean>(false);
+    const [locationSuccess, setLocationSuccess] = useState<boolean>(false);
 
-function useUserLocation() {
-  const { setLatitude, setLongitude } = useContext(WeatherContext);
-  const [error, setError] = useState<string | null>(null);
-  const [isFetching, setIsFetching] = useState(false);
-  const [locationSuccess, setLocationSuccess] = useState(false); // Track if location fetch was successful
+    const fetchLocation = useCallback(() => {
+        setIsFetching(true);
+        setError(null);
 
-  const fetchLocation = useCallback(() => {
-    if (!navigator.geolocation) {
-      setError("Geolocation is not supported by this browser.");
-      return;
-    }
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                    const { latitude, longitude } = position.coords;
 
-    setIsFetching(true);
-    setError(null); // Clear previous errors
-
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        setLatitude(latitude);
-        setLongitude(longitude);
-        setIsFetching(false);
-        setLocationSuccess(true);
-      },
-      (err) => {
-        switch (err.code) {
-          case err.PERMISSION_DENIED:
-            setError("Permission denied. Please allow location access.");
-            break;
-          case err.POSITION_UNAVAILABLE:
-            setError("Location unavailable.");
-            break;
-          case err.TIMEOUT:
-            setError("Location request timed out. Please try again.");
-            break;
-          default:
-            setError("An unknown error occurred.");
+                    try {
+                        const weatherData = await getWeatherForCoordinates(latitude, longitude);
+                        if (weatherData) {
+                            setData(weatherData); // Update the context with the fetched weather data
+                            setLocationSuccess(true);
+                        } else {
+                            setLocationSuccess(false);
+                            setError("Failed to fetch weather data.");
+                        }
+                    } catch (fetchError) {
+                        console.error("Error fetching weather data:", fetchError);
+                        setError("Error fetching weather data.");
+                    } finally {
+                        setIsFetching(false);
+                    }
+                },
+                (err) => {
+                    console.error("Error getting location:", err);
+                    setIsFetching(false);
+                    setLocationSuccess(false);
+                    switch (err.code) {
+                        case err.PERMISSION_DENIED:
+                            setError("User denied the request for Geolocation.");
+                            break;
+                        case err.POSITION_UNAVAILABLE:
+                            setError("Location information is unavailable.");
+                            break;
+                        case err.TIMEOUT:
+                            setError("The request to get user location timed out.");
+                            break;
+                        default:
+                            setError("An unknown error occurred.");
+                            break;
+                    }
+                }
+            );
+        } else {
+            console.warn("Geolocation is not supported by this browser.");
+            setError("Geolocation is not supported by this browser.");
+            setIsFetching(false);
         }
-        setIsFetching(false);
-        setLocationSuccess(false);
-      },
-      options
-    );
-  }, [setLatitude, setLongitude]);
+    }, [setData]);
 
-  // Reset location success state when component unmounts or location fetch fails
   useEffect(() => {
-    return () => {
-      setLocationSuccess(false);
-    };
-  }, []);
+    fetchLocation();
+  }, [setData, fetchLocation]);
 
-  return {
-    fetchLocation,
-    error,
-    isFetching,
-    locationSuccess,
-  };
-}
+    return { 
+        fetchLocation,
+        error,
+        isFetching,
+        locationSuccess,
+    };
+};
 
 export default useUserLocation;
