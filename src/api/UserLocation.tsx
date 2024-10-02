@@ -1,47 +1,69 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState, useCallback } from "react";
 import { WeatherContext } from "../context/WeatherContext";
 
 const options = {
-    enableHighAccuracy: false,  
-    timeout: 5000,
+  enableHighAccuracy: true,
+  timeout: 10000,
+  maximumAge: 0,
 };
 
 function useUserLocation() {
-    const { setLatitude, setLongitude } = useContext(WeatherContext);
+  const { setLatitude, setLongitude } = useContext(WeatherContext);
+  const [error, setError] = useState<string | null>(null);
+  const [isFetching, setIsFetching] = useState(false);
+  const [locationSuccess, setLocationSuccess] = useState(false); // Track if location fetch was successful
 
-    useEffect(() => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
-                    setLatitude(latitude);
-                    setLongitude(longitude);
-                },
-                (error) => {
-                    switch (error.code) {
-                        case error.PERMISSION_DENIED:
-                            console.log("User denied the request for Geolocation.");
-                            break;
-                        case error.POSITION_UNAVAILABLE:
-                            console.log("Location information is unavailable.");
-                            break;
-                        case error.TIMEOUT:
-                            console.log("The request to get user location timed out.");
-                            break;
-                        default:
-                            console.log("An unknown error occurred.");
-                            break;
-                    }
-                },
-                options
-            );
-        } else {
-            console.log("Geolocation is not supported by this browser.");
+  const fetchLocation = useCallback(() => {
+    if (!navigator.geolocation) {
+      setError("Geolocation is not supported by this browser.");
+      return;
+    }
+
+    setIsFetching(true);
+    setError(null); // Clear previous errors
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setLatitude(latitude);
+        setLongitude(longitude);
+        setIsFetching(false);
+        setLocationSuccess(true);
+      },
+      (err) => {
+        switch (err.code) {
+          case err.PERMISSION_DENIED:
+            setError("Permission denied. Please allow location access.");
+            break;
+          case err.POSITION_UNAVAILABLE:
+            setError("Location unavailable.");
+            break;
+          case err.TIMEOUT:
+            setError("Location request timed out. Please try again.");
+            break;
+          default:
+            setError("An unknown error occurred.");
         }
-    }, []); // Only runs on component mount
+        setIsFetching(false);
+        setLocationSuccess(false);
+      },
+      options
+    );
+  }, [setLatitude, setLongitude]);
 
-    return null; // Hook doesn't return JSX
+  // Reset location success state when component unmounts or location fetch fails
+  useEffect(() => {
+    return () => {
+      setLocationSuccess(false);
+    };
+  }, []);
+
+  return {
+    fetchLocation,
+    error,
+    isFetching,
+    locationSuccess,
+  };
 }
 
 export default useUserLocation;
