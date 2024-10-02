@@ -7,7 +7,7 @@ function Home() {
   return (
     <>
       <div className='min-h-screen bg-blue-200 flex min-w-full w-fit'>
-        <WeatherCard className='self-center' />
+        <WeatherCard className='self-center h-fit m-24' />
       </div>
     </>
   )

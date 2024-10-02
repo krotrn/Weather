@@ -31,15 +31,15 @@ function Header(): JSX.Element {
   return (
     <>
       <header
-        className="py-3 font-medium shadow sticky top-0 z-50 bg-blue-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-60"
+        className="py-3 font-medium shadow sticky top-0 z-50 bg-blue-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-60 w-full  min-w-fit max-w-screen-2xl mx-auto"
         role="banner"
       >
         <Container>
-          <nav className="flex items-center justify-between" role="navigation" aria-label="Main navigation">
+          <nav className="flex items-center justify-between min-w-[300px] max-w-6xl mx-auto" role="navigation" aria-label="Main navigation">
             {/* Lazy-loaded Logo */}
             <Link to={"/"}>
               <ErrorBoundary>
-                <Icon src={Logo} alt="Logo" className="bg-cover w-12" />
+                <Icon src={Logo} alt="Logo" className="bg-cover w-12 min-w-[50px]" />
               </ErrorBoundary>
             </Link>
 
