@@ -37,9 +37,9 @@ yarn install
 To start the development server, run:
 
 ```bash
-npm start
+npm run dev
 # or
-yarn start
+yarn run dev
 ```
 
 ### Running Tests
