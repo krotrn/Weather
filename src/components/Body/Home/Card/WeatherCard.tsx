@@ -22,10 +22,11 @@ function WeatherCard({ className }: { className?: string }) {
     const dateString = data?.location?.localtime;
     if (dateString) {
         try {
-            const parsedDate = parse(dateString, 'yyyy-MM-dd HH:mm', new Date());
+            const parsedDate = parse(dateString, "yyyy-MM-dd HH:mm", new Date());
             formattedDate = format(parsedDate, 'MMMM dd, yyyy HH:mm');
         } catch (error) {
             console.error("Error parsing date:", error);
+            
         }
     }
 
