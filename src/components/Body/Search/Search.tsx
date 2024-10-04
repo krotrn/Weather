@@ -42,6 +42,7 @@ function Search() {
     if (value.trim()) {
       await fetchSuggestions(value);
     } else {
+      fetchLocation();
       setSuggestions([]);
     }
   }, [fetchSuggestions, setSearchCity]);
