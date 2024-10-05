@@ -1,6 +1,7 @@
-import { DataInterface } from "../../components/Default/DefaultData";
+import { DataInterface } from "../../types/DataInterface";
 import conf from "../../conf/WeatherConf";
-import memoizee from "memoizee"; 
+import memoizee from "memoizee";
+import useFetchedData from "../../components/Default/DefaultData";
 
 const baseUrl: string = conf.apiUrl;
 const apiKey: string = conf.apikey;  
@@ -27,14 +28,14 @@ const fetchWeatherData = async (query: string): Promise<DataInterface | null> =>
 };
 
 export const getWeatherForCity = memoizee(async (city: string): Promise<DataInterface | null> => {
-    if (!city) return null;
+    if (!city) return useFetchedData();
     return fetchWeatherData(city);
 }, { promise: true, maxAge: 10 * 60 * 1000 });  
 
 export const getWeatherForCoordinates = memoizee(async (latitude: number, longitude: number): Promise<DataInterface | null> => {
     if (isNaN(latitude) || isNaN(longitude)) {
         console.warn("Invalid coordinates provided.");
-        return null;
+        return useFetchedData();
     }
     const query = `${latitude},${longitude}`;
     return fetchWeatherData(query);

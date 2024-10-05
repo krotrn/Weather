@@ -5,10 +5,11 @@ interface InputProps {
   value?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   className: string;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void; // Add onKeyDown prop
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(function Input(
-  { placeholder, value, onChange, className },
+  { placeholder, value, onChange, className, onKeyDown }, // Accept onKeyDown in props
   ref
 ) {
   const id = useId();
@@ -20,6 +21,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(function Input(
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      onKeyDown={onKeyDown} // Attach onKeyDown to input element
       ref={ref}
       className={`px-4 py-2 ${className}`}
     />

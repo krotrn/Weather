@@ -1,7 +1,7 @@
 import Container from '../../../Container/Container';
 import Icon from './Icon';
 import { format, parse } from 'date-fns';
-import { DataInterface } from '../../../Default/DefaultData';
+import { DataInterface } from '../../../../types/DataInterface';
 import { useWeather } from '../../../../context/WeatherConf';
 import Location from '../../../../assets/icons/Location.svg';
 import Wind from '../../../../assets/icons/Wind.svg';
@@ -53,7 +53,7 @@ function WeatherCard({ className }: { className?: string }) {
                     <div className="text-6xl md:text-8xl font-bold">{`${data?.current?.temp_c ?? "--"}°C`}</div>
                     <div className="hidden md:block text-3xl">{`${data?.current?.temp_f ?? "--"}°F`}</div>
                     <div className="grid gap-2 text-center">
-                        <Icon src={data?.current?.condition?.icon ?? ""} className="h-16 md:h-20" />
+                        <Icon src={data?.current?.condition?.icon ?? ""} alt='Condition' className="h-16 md:h-20" />
                         <div className="text-sm font-semibold">{`${data?.current?.condition?.text ?? "--"}`}</div>
                     </div>
                 </div>

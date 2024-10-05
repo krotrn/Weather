@@ -8,6 +8,7 @@ const useUserLocation = () => {
     const [isFetching, setIsFetching] = useState<boolean>(false);
     const [locationSuccess, setLocationSuccess] = useState<boolean>(false);
 
+    {/* set Default Weather Data */}
     const fetchDefaultLocation = useCallback(async () => {
         try {
             const weatherData = await getWeatherForCity("Delhi, India");
@@ -26,6 +27,7 @@ const useUserLocation = () => {
         }
     }, [setData]);
 
+    {/* set User Location's Weather */}
     const fetchLocation = useCallback(() => {
         setIsFetching(true);
         setError(null);
@@ -53,7 +55,6 @@ const useUserLocation = () => {
                 },
                 (err) => {
                     console.error("Error getting location:", err);
-                    setIsFetching(false);
                     setLocationSuccess(false);
                     switch (err.code) {
                         case err.PERMISSION_DENIED:
@@ -70,13 +71,14 @@ const useUserLocation = () => {
                             break;
                     }
                     fetchDefaultLocation();
+                    setIsFetching(false);
                 }
             );
         } else {
             console.warn("Geolocation is not supported by this browser.");
             setError("Geolocation is not supported by this browser.");
-            setIsFetching(false);
             fetchDefaultLocation();
+            setIsFetching(false);
         }
     }, [fetchDefaultLocation, setData]);
 

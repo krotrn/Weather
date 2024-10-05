@@ -2,7 +2,7 @@ import WeatherCard from './Card/WeatherCard'
 import useUserLocation from '../../../api/UserLocation'
 import { memo } from 'react';
 
-function Home({className}: {className?: React.ReactNode}) {
+function Home({className}: {className?: string}) {
   useUserLocation();
   return (
     <>
