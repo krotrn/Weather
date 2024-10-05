@@ -34,7 +34,7 @@ function WeatherCard({ className }: { className?: string }) {
     const airQualityIndex = airQuality ? airQuality["us-epa-index"] : "--";
 
     return (
-        <Container className={`w-full max-w-4xl grid gap-6 p-5 h-fit bg-white rounded-xl bg-opacity-60 shadow-[rgba(0,0,0,0.35)_0px_5px_15px] backdrop-blur-lg ${className}`}>
+        <Container className={`w-full my-24 lg:my-0 max-w-4xl grid gap-6 p-5 h-fit bg-white rounded-xl bg-opacity-60 shadow-[rgba(0,0,0,0.35)_0px_5px_15px] backdrop-blur-lg ${className}`}>
             {/* Location and Date */}
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between">
                 <div className="flex items-start gap-2">

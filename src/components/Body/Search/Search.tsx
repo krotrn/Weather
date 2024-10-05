@@ -120,7 +120,7 @@ function Search() {
         {/* Action Buttons */}
         <div className="flex p-0 justify-center">
           <Button
-            className={`inline-block px-6 py-2 bg-blue-400 text-[#164b8f] hover:bg-[rgb(3,139,217)] mx-2 hover:text-white duration-200 rounded-md ${!value ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`inline-block px-6 py-2 min-h-12 h-fit bg-blue-400 text-[#164b8f] hover:bg-[rgb(3,139,217)] mx-2 hover:text-white duration-200 rounded-md ${!value ? 'opacity-50 cursor-not-allowed' : ''}`}
             type="submit"
             disabled={!value || isFetching}
           >
@@ -128,7 +128,7 @@ function Search() {
           </Button>
 
           <Button
-            className="inline-block px-6 py-2 bg-blue-400 text-[#164b8f] hover:bg-[rgb(3,139,217)] mx-2 hover:text-white duration-200 rounded-md"
+            className="inline-block px-6 py-2 min-h-12 h-fit bg-blue-400 text-[#164b8f] hover:bg-[rgb(3,139,217)] mx-2 hover:text-white duration-200 rounded-md"
             type="button"
             onClick={fetchLocation}
             disabled={isLocating}
