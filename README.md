@@ -39,7 +39,7 @@ To start the development server, run:
 ```bash
 npm run dev
 # or
-yarn run dev
+yarn dev
 ```
 
 ### Running Tests
