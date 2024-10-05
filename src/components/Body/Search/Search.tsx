@@ -48,7 +48,6 @@ function Search() {
     if (e.target.value.trim()) {
       await fetchSuggestions(e.target.value.trim());
     } else {
-      fetchLocation();
       setSuggestions([]);
     }
   }, [fetchSuggestions]);
