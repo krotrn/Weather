@@ -13,7 +13,7 @@ const useUserLocation = () => {
         try {
             const weatherData = await getWeatherForCity("Delhi, India");
             if (weatherData) {
-                setData(weatherData); // Fallback to Delhi, India weather data
+                setData(weatherData);
                 setLocationSuccess(true);
             } else {
                 setLocationSuccess(false);

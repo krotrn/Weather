@@ -4,11 +4,9 @@ import { DataInterface } from "../../types/DataInterface";
 import { useWeather } from "../../context/WeatherConf";
 import { Default } from "./EmptyData";
 
-
-
 const useFetchedData = () => {
     const { latitude, longitude, searchCity } = useWeather();
-    const [data, setData] = useState<DataInterface>(Default); // Initialize with Default to wait for API response
+    const [data, setData] = useState<DataInterface>(Default);
 
     const fetchDataForCity = useCallback(async (city: string) => {
         try {
@@ -23,7 +21,7 @@ const useFetchedData = () => {
 
     const fetchDataForCoordinates = useCallback(async () => {
         try {
-            if (!latitude || !longitude) return fetchDataForCity("Delhi, India"); // Default to Delhi, India if no coordinates
+            if (!latitude || !longitude) return fetchDataForCity("Delhi, India");
             const response = await getWeatherForCoordinates(latitude, longitude);
             if (response) {
                 setData(response);
@@ -39,7 +37,7 @@ const useFetchedData = () => {
         } else if (searchCity) {
             fetchDataForCity(searchCity);
         } else {
-            fetchDataForCity("Delhi, India"); // Fetch weather for Delhi, India by default
+            fetchDataForCity("Delhi, India");
         }
     }, [fetchDataForCity, fetchDataForCoordinates, latitude, longitude, searchCity]);
 

@@ -1,4 +1,4 @@
-import { createContext, useState, useCallback, useEffect } from "react";
+import { createContext, useState, useCallback } from "react";
 import { getWeatherForCity, getWeatherForCoordinates } from "../api/Weather/index";
 import useFetchedData from "../components/Default/DefaultData";
 import { DataInterface } from "../types/DataInterface";
@@ -9,13 +9,13 @@ import { Default } from "../components/Default/EmptyData.ts";
 export const WeatherContext = createContext<WeatherContextType>({
   data: Default,
   searchCity: "",
-  DefaultData:Default,
-  setSearchCity: () => {},
-  fetchDataForCity: async () => {},
-  fetchDataForCoordinates: async () => {},
-  setLatitude: () => {},
+  DefaultData: Default,
+  setSearchCity: () => { },
+  fetchDataForCity: async () => { },
+  fetchDataForCoordinates: async () => { },
+  setLatitude: () => { },
   setLongitude: () => { },
-  setData: () => {},
+  setData: () => { },
   latitude: null,
   longitude: null,
 });
@@ -36,7 +36,7 @@ export const WeatherProvider = ({ children }: { children: React.ReactNode }) => 
       const response = await getWeatherForCity(searchCity);
       if (response) {
         setData(response);
-        console.error(null); // Clear any previous errors
+        console.error(null);
       } else {
         console.error("No data returned from the weather API.");
       }
@@ -53,7 +53,7 @@ export const WeatherProvider = ({ children }: { children: React.ReactNode }) => 
       const response = await getWeatherForCoordinates(latitude, longitude);
       if (response) {
         setData(response);
-        console.error(null); // Clear any previous errors
+        console.error(null);
       } else {
         console.error("No data returned from the weather API.");
       }
@@ -61,20 +61,6 @@ export const WeatherProvider = ({ children }: { children: React.ReactNode }) => 
       console.error("Error fetching weather data for the coordinates:", error);
     }
   }, [latitude, longitude]);
-
-  // Automatically fetch weather data when a city is entered
-  useEffect(() => {
-    if (searchCity) {
-      fetchDataForCity();
-    }
-  }, [searchCity, fetchDataForCity]);
-
-  // Automatically fetch weather data when coordinates are available
-  useEffect(() => {
-    if (latitude && longitude) {
-      fetchDataForCoordinates();
-    }
-  }, [latitude, longitude, fetchDataForCoordinates]);
 
   return (
     <WeatherContext.Provider
