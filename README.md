@@ -42,16 +42,6 @@ npm run dev
 yarn dev
 ```
 
-### Running Tests
-
-To run tests, use:
-
-```bash
-npm test
-# or
-yarn test
-```
-
 ## Contributing
 
 Contributions are welcome! Please follow these steps to contribute:
